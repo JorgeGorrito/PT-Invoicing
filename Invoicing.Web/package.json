@@ -1,0 +1,15 @@
+{
+  "name": "invoicing-web",
+  "version": "1.0.0",
+  "description": "Sistema de Facturación - Frontend",
+  "scripts": {
+    "build:css": "tailwindcss -i wwwroot/css/site.css -o wwwroot/css/output.css --minify",
+    "watch:css": "tailwindcss -i wwwroot/css/site.css -o wwwroot/css/output.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}
