@@ -1,0 +1,83 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<div class="px-4 py-8">
+    <!-- Hero Section -->
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4">Sistema de Facturación</h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Sistema completo de gestión de facturas y cuentas con integración a servicios externos
+        </p>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <!-- Facturación Card -->
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-6">
+                <svg class="w-12 h-12 text-white mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <h2 class="text-2xl font-bold text-white">Gestión de Facturas</h2>
+            </div>
+            <div class="p-6">
+                <p class="text-gray-600 mb-6">
+                    Crea, consulta y administra facturas con cálculo automático de IVA (19%) y descuentos.
+                </p>
+                <div class="space-y-3">
+                    <a asp-page="/Invoices/Create" class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center font-semibold py-3 px-4 rounded-lg transition duration-200">
+                        Crear Nueva Factura
+                    </a>
+                    <a asp-page="/Invoices/List" class="block w-full bg-gray-100 hover:bg-gray-200 text-gray-800 text-center font-semibold py-3 px-4 rounded-lg transition duration-200">
+                        Ver Facturas Registradas
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cuentas Card -->
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            <div class="bg-gradient-to-r from-green-500 to-green-600 p-6">
+                <svg class="w-12 h-12 text-white mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                </svg>
+                <h2 class="text-2xl font-bold text-white">Gestión de Cuentas</h2>
+            </div>
+            <div class="p-6">
+                <p class="text-gray-600 mb-6">
+                    Integración con API externa de Novasoft para gestionar cuentas de clientes.
+                </p>
+                <div class="space-y-3">
+                    <a asp-page="/Accounts/Create" class="block w-full bg-green-600 hover:bg-green-700 text-white text-center font-semibold py-3 px-4 rounded-lg transition duration-200">
+                        Crear Nueva Cuenta
+                    </a>
+                    <a asp-page="/Accounts/List" class="block w-full bg-gray-100 hover:bg-gray-200 text-gray-800 text-center font-semibold py-3 px-4 rounded-lg transition duration-200">
+                        Ver Cuentas Registradas
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="mt-16 max-w-5xl mx-auto">
+        <h3 class="text-2xl font-bold text-gray-900 text-center mb-8">Características del Sistema</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow text-center">
+                <div class="text-blue-600 text-3xl font-bold mb-2">19%</div>
+                <p class="text-gray-600">IVA calculado automáticamente</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow text-center">
+                <div class="text-green-600 text-3xl font-bold mb-2">5%</div>
+                <p class="text-gray-600">Descuento sobre $500,000</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow text-center">
+                <div class="text-purple-600 text-3xl font-bold mb-2">API</div>
+                <p class="text-gray-600">Integración con Novasoft</p>
+            </div>
+        </div>
+    </div>
+</div>

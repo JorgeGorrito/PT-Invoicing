@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="es" class="h-full bg-gray-50">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sistema de Facturación</title>
+    <link rel="stylesheet" href="~/css/output.css" asp-append-version="true" />
+</head>
+<body class="h-full">
+    <div class="min-h-full">
+        <nav class="bg-blue-600 shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex">
+                        <div class="flex-shrink-0 flex items-center">
+                            <a asp-page="/Index" class="text-white text-xl font-bold">
+                                <svg class="inline-block w-8 h-8 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                Sistema de Facturación
+                            </a>
+                        </div>
+                        <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                            <a asp-page="/Index" class="text-white hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium inline-flex items-center">
+                                Inicio
+                            </a>
+                            <a asp-page="/Invoices/Create" class="text-white hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium inline-flex items-center">
+                                Nueva Factura
+                            </a>
+                            <a asp-page="/Invoices/List" class="text-white hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium inline-flex items-center">
+                                Listado Facturas
+                            </a>
+                            <a asp-page="/Accounts/Create" class="text-white hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium inline-flex items-center">
+                                Nueva Cuenta
+                            </a>
+                            <a asp-page="/Accounts/List" class="text-white hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium inline-flex items-center">
+                                Listado Cuentas
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+                @RenderBody()
+            </div>
+        </main>
+
+        <footer class="bg-white border-t border-gray-200 mt-12">
+            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <p class="text-center text-gray-500 text-sm">
+                    &copy; @DateTime.Now.Year - Sistema de Facturación - Prueba Técnica
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
