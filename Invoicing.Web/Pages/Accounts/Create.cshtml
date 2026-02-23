@@ -1,0 +1,164 @@
+@page
+@model Invoicing.Web.Pages.Accounts.CreateModel
+@{
+    ViewData["Title"] = "Crear Cuenta";
+}
+
+<div class="px-4">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Nueva Cuenta</h1>
+            <p class="text-gray-600">Registra una nueva cuenta en el sistema externo de Novasoft</p>
+        </div>
+
+        <!-- Success Message -->
+        @if (Model.SuccessMessage != null)
+        {
+            <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-6">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-green-700 font-medium">@Model.SuccessMessage</p>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <!-- Error Message -->
+        @if (Model.ErrorMessage != null)
+        {
+            <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-red-700 font-medium">@Model.ErrorMessage</p>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <form method="post" class="space-y-6">
+            <!-- Account Information Card -->
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    Información de la Cuenta
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="label-text" for="code">Código de Cliente *</label>
+                        <input type="text" id="code" name="Request.Code" required 
+                               class="input-field" placeholder="Ej: 456" />
+                        <span asp-validation-for="Request.Code" class="error-message"></span>
+                    </div>
+                    
+                    <div>
+                        <label class="label-text" for="identification">Identificación (NIT) *</label>
+                        <input type="text" id="identification" name="Request.Identification" required 
+                               class="input-field" placeholder="Ej: 789456" />
+                        <span asp-validation-for="Request.Identification" class="error-message"></span>
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <label class="label-text" for="name">Nombre Completo *</label>
+                        <input type="text" id="name" name="Request.Name" required 
+                               class="input-field" placeholder="Ej: Empresa de Prueba S.A.S." />
+                        <span asp-validation-for="Request.Name" class="error-message"></span>
+                    </div>
+                    
+                    <div>
+                        <label class="label-text" for="firstName">Primer Nombre *</label>
+                        <input type="text" id="firstName" name="Request.FirstName" required 
+                               class="input-field" placeholder="Ej: Juan" />
+                        <span asp-validation-for="Request.FirstName" class="error-message"></span>
+                    </div>
+                    
+                    <div>
+                        <label class="label-text" for="lastName">Apellido *</label>
+                        <input type="text" id="lastName" name="Request.LastName" required 
+                               class="input-field" placeholder="Ej: Pérez" />
+                        <span asp-validation-for="Request.LastName" class="error-message"></span>
+                    </div>
+                    
+                    <div>
+                        <label class="label-text" for="email">Correo Electrónico *</label>
+                        <input type="email" id="email" name="Request.Email" required 
+                               class="input-field" placeholder="Ej: ejemplo@correo.com" />
+                        <span asp-validation-for="Request.Email" class="error-message"></span>
+                    </div>
+                    
+                    <div>
+                        <label class="label-text" for="phone">Teléfono *</label>
+                        <input type="text" id="phone" name="Request.Phone" required 
+                               class="input-field" placeholder="Ej: 123456789" />
+                        <span asp-validation-for="Request.Phone" class="error-message"></span>
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <label class="label-text" for="address">Dirección *</label>
+                        <input type="text" id="address" name="Request.Address" required 
+                               class="input-field" placeholder="Ej: Calle 123 #45-67" />
+                        <span asp-validation-for="Request.Address" class="error-message"></span>
+                    </div>
+                    
+                    <div>
+                        <label class="label-text" for="externalClientCode">Código Cliente Externo</label>
+                        <input type="text" id="externalClientCode" name="Request.ExternalClientCode" 
+                               class="input-field" placeholder="Opcional" />
+                    </div>
+                    
+                    <div>
+                        <label class="label-text" for="webPage">Página Web</label>
+                        <input type="url" id="webPage" name="Request.WebPage" 
+                               class="input-field" placeholder="Ej: https://ejemplo.com" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Box -->
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-blue-700">
+                            Esta cuenta se creará en el sistema externo de Novasoft mediante su API REST.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex gap-4">
+                <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-200 flex-1">
+                    <svg class="inline w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Crear Cuenta
+                </button>
+                <a asp-page="/Accounts/List" class="btn-secondary flex-1 text-center">
+                    Ver Cuentas
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
