@@ -286,16 +286,26 @@ npm --version
 
 ### Método 1: Script Automático (Recomendado)
 
-**Ejecutar en HTTPS:**
+**Windows:**
 ```cmd
 start-https.bat
+```
+
+**Linux/Mac:**
+```bash
+# Dar permisos de ejecución (solo la primera vez)
+chmod +x start-https.sh
+
+# Ejecutar
+./start-https.sh
 ```
 
 Este script:
 1. Inicia la API en `https://localhost:7065`
 2. Espera 8 segundos
 3. Inicia el Web en `https://localhost:7057`
-4. Abre dos ventanas de terminal
+4. Windows: Abre dos ventanas de terminal
+5. Linux/Mac: Ejecuta en segundo plano (Ctrl+C para detener)
 
 ### Método 2: Visual Studio
 
