@@ -284,6 +284,30 @@ npm --version
 
 ## 🚀 Instalación y Ejecución
 
+### ⚠️ Configuración Importante
+
+**Antes de ejecutar el proyecto, debes configurar las credenciales de la API de Novasoft:**
+
+1. Abre el archivo `Invoicing.API/appsettings.json`
+2. Configura correctamente los valores de `User` y `Password` en la sección `NovasoftApi`:
+
+```json
+{
+  "NovasoftApi": {
+    "BaseUrl": "https://test.novasoft.com.co:8091/WebAPI/api/",
+    "ConnectionName": "DataPower",
+    "User": "TU_USUARIO_AQUI",
+    "Password": "TU_CONTRASEÑA_AQUI"
+  }
+}
+```
+
+> 📝 **Nota**: Estos valores son fundamentales para que la funcionalidad de **Gestión de Cuentas** funcione correctamente. Sin credenciales válidas, las operaciones de creación y consulta de cuentas fallarán.
+
+> 🔒 **Seguridad**: Por razones de seguridad, estas credenciales no están incluidas en el repositorio. Consulta con el equipo de Novasoft para obtener las credenciales de acceso.
+
+---
+
 ### Método 1: Script Automático (Recomendado)
 
 **Windows:**
@@ -871,9 +895,10 @@ app.UseCors("AllowWebApp");
   "NovasoftApi": {
     "BaseUrl": "https://test.novasoft.com.co:8091/WebAPI/api/",
     "ConnectionName": "DataPower",
-    "User": "pruebaTecnica",
-    "Password": "P@ssw0rd"
+    "User": "TU_USUARIO_AQUI",
+    "Password": "TU_CONTRASEÑA_AQUI"
   }
+}
 }
 ```
 
