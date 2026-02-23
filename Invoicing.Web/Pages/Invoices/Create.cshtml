@@ -1,0 +1,267 @@
+@page
+@model Invoicing.Web.Pages.Invoices.CreateModel
+@{
+    ViewData["Title"] = "Crear Factura";
+}
+
+<div class="px-4">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Nueva Factura</h1>
+            <p class="text-gray-600">Complete los datos del cliente y agregue los artículos de la factura</p>
+        </div>
+
+        <!-- Success Message -->
+        @if (Model.SuccessMessage != null)
+        {
+            <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-6">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-green-700 font-medium">@Model.SuccessMessage</p>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <!-- Error Message -->
+        @if (Model.ErrorMessage != null)
+        {
+            <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-red-700 font-medium">@Model.ErrorMessage</p>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <form method="post" class="space-y-6">
+            <!-- Client Information Card -->
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    Información del Cliente
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="label-text" for="docNumber">Número de Documento *</label>
+                        <input type="text" id="docNumber" name="Request.DocNumber" required 
+                               class="input-field" placeholder="Ej: 1006875365" maxlength="15" />
+                        <span asp-validation-for="Request.DocNumber" class="error-message"></span>
+                    </div>
+                    
+                    <div>
+                        <label class="label-text" for="firstName">Nombres *</label>
+                        <input type="text" id="firstName" name="Request.FirstName" required 
+                               class="input-field" placeholder="Ej: Jorge" />
+                        <span asp-validation-for="Request.FirstName" class="error-message"></span>
+                    </div>
+                    
+                    <div>
+                        <label class="label-text" for="lastName">Apellidos *</label>
+                        <input type="text" id="lastName" name="Request.LastName" required 
+                               class="input-field" placeholder="Ej: Abella" />
+                        <span asp-validation-for="Request.LastName" class="error-message"></span>
+                    </div>
+                    
+                    <div>
+                        <label class="label-text" for="phone">Teléfono *</label>
+                        <input type="text" id="phone" name="Request.Phone" required 
+                               class="input-field" placeholder="Ej: 3001234567" />
+                        <span asp-validation-for="Request.Phone" class="error-message"></span>
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <label class="label-text" for="address">Dirección *</label>
+                        <input type="text" id="address" name="Request.Address" required 
+                               class="input-field" placeholder="Ej: Calle 123 #45-67" />
+                        <span asp-validation-for="Request.Address" class="error-message"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Items Section -->
+            <div class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                    </svg>
+                    Artículos de la Factura
+                </h2>
+
+                <div id="items-container">
+                    <!-- Template item will be cloned here -->
+                </div>
+
+                <button type="button" id="add-item-btn" 
+                        class="mt-4 inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition duration-200">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                    Agregar Artículo
+                </button>
+            </div>
+
+            <!-- Totals Card -->
+            <div class="bg-gradient-to-br from-blue-50 to-blue-100 shadow-md rounded-lg p-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Resumen de la Factura</h2>
+                
+                <div class="space-y-2 bg-white rounded-lg p-4">
+                    <div class="flex justify-between text-gray-700">
+                        <span>Valor Bruto:</span>
+                        <span id="gross-value" class="font-semibold">$0.00</span>
+                    </div>
+                    <div class="flex justify-between text-gray-700">
+                        <span>Descuento (5% sobre $500,000):</span>
+                        <span id="discount-value" class="font-semibold text-green-600">$0.00</span>
+                    </div>
+                    <div class="flex justify-between text-gray-700">
+                        <span>IVA (19%):</span>
+                        <span id="tax-value" class="font-semibold">$0.00</span>
+                    </div>
+                    <div class="border-t-2 border-gray-300 pt-2 mt-2">
+                        <div class="flex justify-between text-lg font-bold text-gray-900">
+                            <span>Total:</span>
+                            <span id="total-value" class="text-blue-600">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex gap-4">
+                <button type="submit" class="btn-primary flex-1">
+                    <svg class="inline w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Grabar Factura
+                </button>
+                <a asp-page="/Invoices/List" class="btn-secondary flex-1 text-center">
+                    Ver Facturas
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Item Template (Hidden) -->
+<template id="item-template">
+    <div class="item-row bg-gray-50 rounded-lg p-4 mb-3 border border-gray-200">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div>
+                <label class="label-text">Código Artículo *</label>
+                <input type="number" name="Request.Items[{INDEX}].ArticleCode" required 
+                       class="input-field item-code" min="1" />
+            </div>
+            <div>
+                <label class="label-text">Cantidad *</label>
+                <input type="number" name="Request.Items[{INDEX}].Quantity" required 
+                       class="input-field item-quantity" min="1" value="1" />
+            </div>
+            <div>
+                <label class="label-text">Precio Unitario *</label>
+                <input type="number" name="Request.Items[{INDEX}].UnitPrice" required 
+                       class="input-field item-price" min="0" step="0.01" />
+            </div>
+            <div class="flex items-end">
+                <button type="button" class="remove-item-btn w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
+                    Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+</template>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        let itemIndex = 0;
+
+        function calculateTotals() {
+            let gross = 0;
+
+            document.querySelectorAll('.item-row').forEach(row => {
+                const quantity = parseFloat(row.querySelector('.item-quantity').value) || 0;
+                const price = parseFloat(row.querySelector('.item-price').value) || 0;
+                gross += quantity * price;
+            });
+
+            const discount = gross >= 500000 ? gross * 0.05 : 0;
+            const taxBase = gross - discount;
+            const tax = taxBase * 0.19;
+            const total = taxBase + tax;
+
+            document.getElementById('gross-value').textContent = formatCurrency(gross);
+            document.getElementById('discount-value').textContent = formatCurrency(discount);
+            document.getElementById('tax-value').textContent = formatCurrency(tax);
+            document.getElementById('total-value').textContent = formatCurrency(total);
+        }
+
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('es-CO', {
+                style: 'currency',
+                currency: 'COP',
+                minimumFractionDigits: 2
+            }).format(value);
+        }
+
+        function reindexItems() {
+            const rows = document.querySelectorAll('.item-row');
+            rows.forEach((row, index) => {
+                row.querySelectorAll('input').forEach(input => {
+                    const name = input.getAttribute('name');
+                    if (name) {
+                        input.setAttribute('name', name.replace(/\[\d+\]/, `[${index}]`));
+                    }
+                });
+            });
+        }
+
+        function addItem() {
+            const template = document.getElementById('item-template');
+            const clone = template.content.cloneNode(true);
+
+            const html = new DOMParser().parseFromString(clone.querySelector('.item-row').outerHTML, 'text/html');
+            const itemRow = html.querySelector('.item-row');
+            itemRow.innerHTML = itemRow.innerHTML.replace(/\{INDEX\}/g, itemIndex);
+
+            document.getElementById('items-container').appendChild(html.querySelector('.item-row'));
+
+            const newRow = document.getElementById('items-container').lastElementChild;
+            newRow.querySelector('.remove-item-btn').addEventListener('click', function() {
+                newRow.remove();
+                reindexItems();
+                calculateTotals();
+            });
+
+            newRow.querySelectorAll('.item-quantity, .item-price').forEach(input => {
+                input.addEventListener('input', calculateTotals);
+            });
+
+            itemIndex++;
+            calculateTotals();
+        }
+
+        document.getElementById('add-item-btn').addEventListener('click', addItem);
+
+        document.querySelector('form').addEventListener('submit', function(e) {
+            reindexItems();
+        });
+
+        addItem();
+    </script>
+}

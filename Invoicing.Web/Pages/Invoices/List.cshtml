@@ -1,0 +1,211 @@
+@page
+@model Invoicing.Web.Pages.Invoices.ListModel
+@{
+    ViewData["Title"] = "Listado de Facturas";
+}
+
+<div class="px-4">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="mb-8 flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900 mb-2">Facturas Registradas</h1>
+                <p class="text-gray-600">Consulta todas las facturas creadas en el sistema</p>
+            </div>
+            <a asp-page="/Invoices/Create" class="btn-primary">
+                <svg class="inline w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                Nueva Factura
+            </a>
+        </div>
+
+        <!-- API Connection Error -->
+        @if (Model.ErrorMessage != null)
+        {
+            <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-lg mb-6">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3 flex-1">
+                        <p class="text-lg font-medium text-red-800 mb-2">⚠️ La API no está ejecutándose</p>
+                        <p class="text-sm text-red-700 mb-3">@Model.ErrorMessage</p>
+
+                        <div class="bg-white rounded-lg p-4 mt-4 border border-red-200">
+                            <p class="font-semibold text-gray-900 mb-2">🔧 Solución:</p>
+                            <ol class="list-decimal list-inside space-y-2 text-sm text-gray-700">
+                                <li>Detén la ejecución actual (Shift+F5)</li>
+                                <li>
+                                    <strong>Opción A:</strong> Ejecuta el script <code class="bg-gray-100 px-2 py-1 rounded">start-all.bat</code> en la raíz de la solución
+                                </li>
+                                <li>
+                                    <strong>Opción B:</strong> En Visual Studio:
+                                    <ul class="list-disc list-inside ml-6 mt-1 space-y-1">
+                                        <li>Clic derecho en la Solución → "Set Startup Projects..."</li>
+                                        <li>Selecciona "Multiple startup projects"</li>
+                                        <li>Marca ambos proyectos (API y Web) como "Start"</li>
+                                        <li>Presiona F5</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                            <div class="mt-3 p-3 bg-blue-50 rounded border border-blue-200">
+                                <p class="text-xs text-blue-800">
+                                    <strong>📋 Puertos:</strong> API debe ejecutarse en <code>https://localhost:7065</code>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else if (Model.Invoices == null || !Model.Invoices.Any())
+        {
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-lg">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-lg font-medium text-yellow-800">No hay facturas registradas</p>
+                        <p class="mt-2 text-sm text-yellow-700">
+                            Comienza creando tu primera factura haciendo clic en el botón "Nueva Factura".
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-blue-500 rounded-md p-3">
+                            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-5">
+                            <p class="text-sm font-medium text-gray-500">Total Facturas</p>
+                            <p class="text-2xl font-bold text-gray-900">@Model.Invoices.Count()</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-green-500 rounded-md p-3">
+                            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-5">
+                            <p class="text-sm font-medium text-gray-500">Total Facturado</p>
+                            <p class="text-2xl font-bold text-gray-900">@Model.Invoices.Sum(i => i.Total).ToString("C0")</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-purple-500 rounded-md p-3">
+                            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-5">
+                            <p class="text-sm font-medium text-gray-500">Promedio por Factura</p>
+                            <p class="text-2xl font-bold text-gray-900">@((Model.Invoices.Sum(i => i.Total) / Model.Invoices.Count()).ToString("C0"))</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    # Factura
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Fecha
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Cliente
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Documento
+                                </th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Valor Bruto
+                                </th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Descuento
+                                </th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    IVA
+                                </th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Total
+                                </th>
+                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Acciones
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            @foreach (var invoice in Model.Invoices)
+                            {
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900">#@invoice.Id</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">@invoice.Date.ToString("dd/MM/yyyy")</div>
+                                        <div class="text-xs text-gray-500">@invoice.Date.ToString("HH:mm")</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900">@invoice.ClientName</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">@invoice.ClientDocNumber</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right">
+                                        <div class="text-sm text-gray-900">@invoice.GrossValue.ToString("C0")</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right">
+                                        <div class="text-sm text-green-600">-@invoice.Discount.ToString("C0")</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right">
+                                        <div class="text-sm text-gray-900">@invoice.Tax.ToString("C0")</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right">
+                                        <div class="text-sm font-bold text-blue-600">@invoice.Total.ToString("C0")</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                                        <a asp-page="/Invoices/Detail" asp-route-id="@invoice.Id" 
+                                           class="inline-flex items-center px-3 py-1 bg-blue-100 hover:bg-blue-200 text-blue-700 text-sm font-medium rounded transition duration-200">
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                            </svg>
+                                            Ver Detalle
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+</div>
